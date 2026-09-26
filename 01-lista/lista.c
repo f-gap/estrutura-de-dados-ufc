@@ -117,3 +117,12 @@ void lst_imprime_rec(Lista *l) {
     }
 }
 
+void lst_imprime_invertida_rec(Lista *l) {
+    if(lst_vazia(l)) {
+        return;
+    }
+    else {
+        lst_imprime_invertida_rec(l->prox);
+        printf("info: %d\n", l->info);
+    }
+}
