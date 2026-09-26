@@ -13,3 +13,5 @@ void lst_imprime(Lista *l);
 Lista* lst_remove(Lista *l, int info);
 /* Libera o espaço alocado por uma lista.*/
 void lst_libera(Lista *l);
+/*Insere um elemento na lista de forma que o anterior seja menor que ele e o próximo seja maior*/
+Lista *lst_insere_ordenado(Lista* l, int info);

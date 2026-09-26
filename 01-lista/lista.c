@@ -34,7 +34,7 @@ Lista* lst_busca(Lista *l, int info) {
     return NULL;
 }
 
-void lst_imprime(Lista *l) {
+void lst_imprime(Lista *l) { 
     Lista* l_aux = l;
     while(l_aux != NULL) {
         printf("Info = %d\n",l_aux->info);
@@ -80,4 +80,19 @@ void lst_libera(Lista *l) {
 
 }
 
+Lista *lst_insere_ordenado(Lista* l, int info) {
+    Lista *l_new = (Lista *) malloc(sizeof(Lista));
+    if(l==NULL) {
+        l_new->info = info;
+        l_new->prox = NULL;
+        return l_new;
+    }
+    else if(l->info >= info) {
+        l_new->info = info;
+        l_new->prox = l;
+    }
+    else {
+        
+    }
 
+}
