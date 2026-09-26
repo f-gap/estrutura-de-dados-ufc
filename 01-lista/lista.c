@@ -105,5 +105,15 @@ Lista *lst_insere_ordenado(Lista* l, int info) {
         l_new->prox = l_prox;
         return l;
     }
-
 }
+
+void lst_imprime_rec(Lista *l) {
+    if(lst_vazia(l)){
+        return;
+    }
+    else {
+        printf("info: %d\n", l->info);
+        lst_imprime_rec(l->prox);
+    }
+}
+
