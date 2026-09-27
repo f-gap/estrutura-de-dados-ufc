@@ -126,3 +126,37 @@ void lst_imprime_invertida_rec(Lista *l) {
         printf("info: %d\n", l->info);
     }
 }
+
+Lista* lst_remove_rec(Lista *l, int info) {
+    if(!lst_vazia(l)) {
+        if(l->info==info) {
+            Lista* l_aux = l;
+            l=l->prox;
+            free(l_aux);
+        }
+        else {
+            l->prox = lst_remove_rec(l->prox, info);
+        }
+        return l;
+    }
+}
+
+void lst_libera_rec(Lista *l) {
+    if(lst_vazia(l)) {
+        return;
+    }
+    lst_libera_rec(l->prox);
+    free(l);
+}
+
+int lst_igual_rec(Lista *l,Lista *l2) {
+    if(lst_vazia(l) && lst_vazia(l2)) {
+        return 1;
+    }
+    else if (lst_vazia(l) || lst_vazia(l2)) {
+        return 0;
+    }
+    else {
+        return (l->info == l2->info && lst_igual_rec(l->prox, l2->prox));
+    }
+}
