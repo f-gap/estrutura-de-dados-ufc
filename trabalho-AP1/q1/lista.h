@@ -25,3 +25,10 @@ Lista* lst_remove_rec(Lista *l, int info);
 void lst_libera_rec(Lista *l);
 // Testa se uma lista é igual a outra por recursividade
 int lst_igual_rec(Lista *l,Lista *l2);
+
+int comprimento(Lista* l);
+int menores(Lista* l, int n);
+int soma(Lista* l);
+int primos(Lista* l);
+Lista* lst_conc(Lista* l1, Lista* l2);
+Lista* lst_diferenca(Lista* l1, Lista* l2);
