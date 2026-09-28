@@ -29,7 +29,6 @@ int fila_vazia(Fila *f){
     return f->ini==NULL;
 }
 
-
 void fila_insere(Fila *f, int info) {
     Lista *l = (Lista*)malloc(sizeof(Lista));
     if(l==NULL) {
@@ -59,7 +58,7 @@ int fila_remove(Fila *f) {
     f->ini = f->ini->prox;
     free(l);
     if(fila_vazia(f)) {
-        f->fim == NULL;
+        f->fim = NULL;
     }
     return a;
 }
@@ -67,7 +66,7 @@ int fila_remove(Fila *f) {
 void fila_imprime(Fila *f) {
     Lista *laux = f->ini;
     while(laux!=NULL) {
-        printf("info: %d", laux->info);
+        printf("info: %d\n", laux->info);
         laux = laux->prox;
     }
 }
@@ -81,4 +80,47 @@ void fila_libera(Fila *f) {
         l = laux;
     }
     free(f);
+}
+
+int qtd_maior(Fila* f, int n) {
+    int qtd = 0;
+    Lista* laux = f->ini;
+    while(laux != NULL) {
+        if(laux->info > n) {
+            qtd++;
+        }
+        laux = laux->prox;
+    }
+    return qtd;
+}
+
+Fila* inverte(Fila* f) {
+    Fila* f_inv = fila_cria();
+    Lista* laux = f->ini;
+    int v[100];
+    int n = 0, i;
+
+    while(laux != NULL) {
+        v[n] = laux->info;
+        n++;
+        laux = laux->prox;
+    }
+
+    for(i = n - 1; i >= 0; i--) {
+        fila_insere(f_inv, v[i]);
+    }
+
+    return f_inv;
+}
+
+int pares(Fila* f) {
+    int qtd = 0;
+    Lista* laux = f->ini;
+    while(laux != NULL) {
+        if(laux->info % 2 == 0) {
+            qtd++;
+        }
+        laux = laux->prox;
+    }
+    return qtd;
 }
