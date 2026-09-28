@@ -18,3 +18,7 @@ void pilha_imprime(Pilha *p);
 
 /* Libera a memória alocada para a pilha. */
 void pilha_libera(Pilha *p);
+
+int topo(Pilha* p);
+int impares(Pilha* p);
+Pilha* empilha_pares(Pilha* p1, Pilha* p2);
