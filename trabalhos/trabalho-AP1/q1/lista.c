@@ -77,7 +77,6 @@ void lst_libera(Lista *l) {
         free(l);
         l = l_prox;
     }
-
 }
 
 Lista *lst_insere_ordenado(Lista* l, int info) {
@@ -94,7 +93,7 @@ Lista *lst_insere_ordenado(Lista* l, int info) {
     }
     else {
         Lista *l_ant = l;
-        Lista *l_prox = l_prox;
+        Lista *l_prox = l->prox;
 
         while(l_prox!=NULL && l_prox->info<info) {
             l_ant = l_prox;
@@ -139,6 +138,7 @@ Lista* lst_remove_rec(Lista *l, int info) {
         }
         return l;
     }
+    return NULL;
 }
 
 void lst_libera_rec(Lista *l) {
@@ -159,4 +159,107 @@ int lst_igual_rec(Lista *l,Lista *l2) {
     else {
         return (l->info == l2->info && lst_igual_rec(l->prox, l2->prox));
     }
+}
+
+int comprimento(Lista* l) {
+    int c = 0;
+    Lista* l_aux = l;
+    while(l_aux != NULL) {
+        c++;
+        l_aux = l_aux->prox;
+    }
+    return c;
+}
+
+int menores(Lista* l, int n) {
+    int qtd = 0;
+    Lista* l_aux = l;
+    while(l_aux != NULL) {
+        if(l_aux->info < n) {
+            qtd++;
+        }
+        l_aux = l_aux->prox;
+    }
+    return qtd;
+}
+
+int soma(Lista* l) {
+    int s = 0;
+    Lista* l_aux = l;
+    while(l_aux != NULL) {
+        s += l_aux->info;
+        l_aux = l_aux->prox;
+    }
+    return s;
+}
+
+int eh_primo(int n) {
+    int i;
+    if(n <= 1) return 0;
+    // i*i<=n foi usado como condicao de execucao para evitar processamento desnecessário 
+    for(i = 2; i * i <= n; i++) {
+        if(n % i == 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int primos(Lista* l) {
+    int qtd = 0;
+    Lista* l_aux = l;
+    while(l_aux != NULL) {
+        if(eh_primo(l_aux->info)) {
+            qtd++;
+        }
+        l_aux = l_aux->prox;
+    }
+    return qtd;
+}
+
+Lista* lst_conc(Lista* l1, Lista* l2) {
+    Lista* l_res = lst_cria();
+    Lista* l_aux = l1;
+    Lista* l_ult = NULL;
+
+    while(l_aux != NULL) {
+        Lista* l_new = (Lista*)malloc(sizeof(Lista));
+        l_new->info = l_aux->info;
+        l_new->prox = NULL;
+        if(l_res == NULL) {
+            l_res = l_new;
+        } else {
+            l_ult->prox = l_new;
+        }
+        l_ult = l_new;
+        l_aux = l_aux->prox;
+    }
+
+    l_aux = l2;
+    while(l_aux != NULL) {
+        Lista* l_new = (Lista*)malloc(sizeof(Lista));
+        l_new->info = l_aux->info;
+        l_new->prox = NULL;
+        if(l_res == NULL) {
+            l_res = l_new;
+        } else {
+            l_ult->prox = l_new;
+        }
+        l_ult = l_new;
+        l_aux = l_aux->prox;
+    }
+
+    return l_res;
+}
+
+Lista* lst_diferenca(Lista* l1, Lista* l2) {
+    Lista* l_aux = l1;
+    while(l_aux != NULL) {
+        Lista* l_prox = l_aux->prox;
+        if(lst_busca(l2, l_aux->info) != NULL) {
+            l1 = lst_remove(l1, l_aux->info);
+        }
+        l_aux = l_prox;
+    }
+    return l1;
 }

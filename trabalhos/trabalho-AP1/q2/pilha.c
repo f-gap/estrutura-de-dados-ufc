@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "pilha.h"
 
-#define MAX 3
+#define MAX 50
 
 struct pilha {
     int n;
@@ -52,4 +52,51 @@ void pilha_imprime(Pilha *p) {
 
 void pilha_libera(Pilha *p) {
     free(p);
+}
+
+int topo(Pilha* p) {
+    if (pilha_vazia(p)) {
+        printf("Pilha vazia!\n");
+        exit(1);
+    }
+    return p->v[p->n - 1];
+}
+
+int impares(Pilha* p) {
+    int i, qtd = 0;
+    for (i = 0; i < p->n; i++) {
+        if (p->v[i] % 2 != 0) {
+            qtd++;
+        }
+    }
+    return qtd;
+}
+
+Pilha* empilha_pares(Pilha* p1, Pilha* p2) {
+    int i, j, temp;
+    int pares_v[MAX];
+    int n_pares = 0;
+
+    for (i = 0; i < p1->n; i++) {
+        if (p1->v[i] % 2 == 0) {
+            pares_v[n_pares] = p1->v[i];
+            n_pares++;
+        }
+    }
+
+    for (i = 0; i < n_pares - 1; i++) {
+        for (j = i + 1; j < n_pares; j++) {
+            if (pares_v[i] > pares_v[j]) {
+                temp = pares_v[i];
+                pares_v[i] = pares_v[j];
+                pares_v[j] = temp;
+            }
+        }
+    }
+
+    for (i = 0; i < n_pares; i++) {
+        pilha_push(p2, pares_v[i]);
+    }
+
+    return p2;
 }
